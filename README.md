@@ -1,32 +1,97 @@
-1)Input:
+CROSS-CAMERA PLAYER IDENTITY MAPPING
 
-The script prompts the user to input their weight in kilograms.
-The script prompts the user to input their height in meters.
-Calculate BMI:
+Author: Makarand Kakad
+Project Type: Computer Vision + Player Tracking
+Status: ✅ Completed
 
-2)The BMI is calculated using the formula:
-BMI
-=
-weight
-height
-2
-BMI= 
-height 
-2
- 
-weight
-​
- 
-3)The formula divides the weight in kilograms by the square of the height in meters.
-Determine BMI Category:
+---------------------------------------------
+🎯 OBJECTIVE
 
-The script uses a series of if-elif-else statements to classify the calculated BMI into categories:
-Underweight: BMI <= 18.5
-Normal weight: 18.5 < BMI < 25
-Slightly overweight: 25 <= BMI < 30
-Obese: 30 <= BMI < 35
-Clinically obese: BMI >= 35
-Output:
+To track and map football players across two video feeds (broadcast.mp4 and tacticam.mp4) such that each player retains a consistent identity (same player_id) across both views.
 
-The script prints the calculated BMI rounded to two decimal places.
-The script prints the corresponding weight category.
+---------------------------------------------
+📁 FILES & FOLDER STRUCTURE
+
+cross-camera-player-mapping/
+├── main.ipynb              → End-to-end notebook (Colab or local)
+├── README.txt              → This file
+├── report.md / report.pdf  → Project summary
+
+
+---------------------------------------------
+🛠️ SETUP INSTRUCTIONS
+
+Step 1: Upload these files into a /data folder:
+- broadcast.mp4
+- tacticam.mp4
+- best.pt (YOLO model weights)
+
+Step 2: Install dependencies
+
+Run this in Colab or terminal:
+pip install ultralytics filterpy scikit-learn opencv-python numpy
+
+---------------------------------------------
+🚀 HOW IT WORKS
+
+1. DETECTION & TRACKING
+- YOLOv8 detects players frame by frame.
+- SORT assigns unique IDs to each player in both videos.
+
+2. FEATURE EXTRACTION
+- Visual: RGB color histogram from player crops
+- Spatial: Center coordinates of bounding boxes
+- Temporal: Motion vectors (delta of position across frames)
+
+3. PLAYER MATCHING
+- Cosine similarity is computed across all features.
+- tacticam_id → broadcast_id mapping is created.
+
+4. ID VISUALIZATION
+- Mapped IDs are drawn onto both videos.
+- Output videos:
+    • tacticam_mapped_output.mp4
+    • broadcast_mapped_output.mp4
+
+---------------------------------------------
+📈 TECHNIQUES USED
+
+Detection: YOLOv8 (custom-trained)
+Tracking: SORT
+Feature Extraction: RGB Histogram + Position + Motion
+Matching: Cosine similarity of combined features
+
+---------------------------------------------
+🧪 RESULTS
+
+✓ 27 players tracked in broadcast
+✓ 28 players tracked in tacticam
+✓ Output videos display consistent player IDs across both feeds
+
+---------------------------------------------
+⚠️ CHALLENGES
+
+- Lighting and angle differences caused visual noise
+- Players occluded or only visible in one camera
+- SORT ID switching in crowded scenes
+
+---------------------------------------------
+💡 FUTURE WORK
+
+- Try Deep SORT or Re-ID networks
+- Sync camera time more precisely
+- Use jersey OCR or pose estimation for stronger ID confidence
+
+---------------------------------------------
+👩‍💻 AUTHOR
+
+Apeksha Sunil Kakad
+GitHub: https://github.com/Apekshakakad
+
+---------------------------------------------
+📎 SUBMISSION NOTES
+
+- This project is self-contained and reproducible
+- Code runs in `main.ipynb`
+- Make sure videos and model weights are added manually
+
