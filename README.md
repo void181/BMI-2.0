@@ -83,11 +83,6 @@ Matching: Cosine similarity of combined features
 - Use jersey OCR or pose estimation for stronger ID confidence
 
 ---------------------------------------------
-👩‍💻 AUTHOR
-
-Apeksha Sunil Kakad
-GitHub: https://github.com/Apekshakakad
-
 ---------------------------------------------
 📎 SUBMISSION NOTES
 
